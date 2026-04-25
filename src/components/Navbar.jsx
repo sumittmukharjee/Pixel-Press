@@ -6,7 +6,7 @@ export default function Navbar({ theme, onToggle }) {
   return (
     <nav className={styles.nav}>
       <div className={styles.logo}>
-        Pixel<span>Press</span>
+      I❤️JPG <span>— Image Resizer</span>
       </div>
       <div className={styles.right}>
         <span className={styles.badge}>Free · Private</span>

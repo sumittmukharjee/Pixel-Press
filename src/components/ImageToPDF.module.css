@@ -1,0 +1,95 @@
+.wrap { padding: 24px; display: flex; flex-direction: column; gap: 18px; }
+
+.dropZone {
+  border: 2px dashed var(--border);
+  border-radius: 14px; padding: 40px 24px;
+  text-align: center; cursor: pointer;
+  background: var(--surface2);
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  display: flex; flex-direction: column; align-items: center;
+}
+.dropZone:hover, .dragOver {
+  border-color: var(--accent2) !important;
+  background: rgba(46,173,166,0.05) !important;
+  box-shadow: 0 0 24px rgba(46,173,166,0.1);
+}
+.dzTitle { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--text); margin-bottom: 6px; }
+.dzSub { font-size: 0.75rem; color: var(--text-muted); }
+
+.queue { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
+.qHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.addMoreBtn {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 5px 12px;
+  font-family: 'DM Mono', monospace; font-size: 0.72rem;
+  color: var(--accent2); cursor: pointer;
+  transition: border-color 0.2s;
+}
+.addMoreBtn:hover { border-color: var(--accent2); }
+
+.qItem {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.qItem:last-child { border: none; padding-bottom: 0; }
+.qThumb { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); flex-shrink: 0; }
+.qInfo { flex: 1; min-width: 0; }
+.qName { font-size: 0.78rem; color: var(--text); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.qMeta { font-size: 0.68rem; color: var(--text-muted); margin-top: 2px; }
+
+.qActions { display: flex; gap: 4px; flex-shrink: 0; }
+.qBtn {
+  width: 28px; height: 28px; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--surface);
+  color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.qBtn:hover:not(:disabled) { border-color: var(--accent2); color: var(--accent2); }
+.qBtn:disabled { opacity: 0.3; cursor: not-allowed; }
+.qDel:hover { border-color: #e05555 !important; color: #e05555 !important; }
+
+.settings { display: flex; flex-direction: column; gap: 16px; }
+.settingsGrid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media(max-width:500px) { .settingsGrid { grid-template-columns: 1fr; } }
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.buildBtn {
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, var(--accent2), #3bbfb8);
+  color: white; border: none; border-radius: 12px;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 4px 20px rgba(46,173,166,0.3);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+.buildBtn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(46,173,166,0.45); }
+.buildBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.result {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(30,168,106,0.08); border: 1px solid rgba(30,168,106,0.25);
+  border-radius: 12px; padding: 16px 18px;
+}
+.resultIcon { font-size: 1.5rem; flex-shrink: 0; }
+.resultInfo { flex: 1; }
+.resultTitle { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--success); }
+.resultSub { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+.dlBtn {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--success); color: white; border: none; border-radius: 10px;
+  padding: 10px 18px; font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 0.82rem; text-decoration: none; cursor: pointer;
+  transition: transform 0.15s; flex-shrink: 0;
+}
+.dlBtn:hover { transform: translateY(-1px); }
+
+.spinner {
+  width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: white; border-radius: 50%;
+  animation: spin 0.7s linear infinite; display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

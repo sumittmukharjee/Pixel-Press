@@ -1,5 +1,5 @@
-import React, { useRef } from 'react'
-import { Zap } from 'lucide-react'
+import React, { useRef, useState } from 'react'
+import { Zap, Image, FileText, Maximize2, ArrowLeftRight } from 'lucide-react'
 import { useTheme } from './hooks/useTheme'
 import { useImageProcessor } from './hooks/useImageProcessor'
 import Navbar from './components/Navbar'
@@ -8,12 +8,23 @@ import Presets from './components/Presets'
 import Controls from './components/Controls'
 import PreviewPanel from './components/PreviewPanel'
 import OutputPanel from './components/OutputPanel'
+import ImageToPDF from './components/ImageToPDF'
+import PDFToImage from './components/PDFToImage'
+import PDFSizeChanger from './components/PDFSizeChanger'
 import Footer from './components/Footer'
 import Toast from './components/Toast'
 import styles from './App.module.css'
 
+const TABS = [
+  { id: 'resize',     label: 'Image Resizer',    icon: Image,         desc: 'Resize & compress images' },
+  { id: 'img2pdf',    label: 'Image → PDF',       icon: FileText,      desc: 'Convert images to PDF' },
+  { id: 'pdf2img',    label: 'PDF → Image',       icon: ArrowLeftRight,desc: 'Extract PDF pages as images' },
+  { id: 'pdfsize',    label: 'PDF Page Resizer',  icon: Maximize2,     desc: 'Change PDF page dimensions' },
+]
+
 export default function App() {
   const { theme, toggle } = useTheme()
+  const [tab, setTab] = useState('resize')
   const toastRef = useRef()
   const ip = useImageProcessor()
 
@@ -42,68 +53,94 @@ export default function App() {
           <Zap size={12} /> No Upload · 100% Browser-Based · Instant
         </div>
         <h1 className={`${styles.h1} animate-fadeUp`} style={{animationDelay:'0.1s'}}>
-          Resize Photos.<br />Beat <em>Any</em> Size Limit.
+          Your Image &amp; PDF<br /><em>Swiss Army Knife</em>
         </h1>
         <p className={`${styles.sub} animate-fadeUp`} style={{animationDelay:'0.2s'}}>
-          Compress, resize & convert images to exact KB limits or pixel dimensions.
-          Built for every portal that rejects your perfectly good photo.
+          Resize images, convert to PDF, extract PDF pages as images, and resize PDF pages —
+          all free, all private, all in your browser.
         </p>
       </section>
 
-      {/* Main card */}
       <main className={styles.main}>
+        {/* Tab bar */}
+        <div className={`${styles.tabBar} animate-fadeUp`} style={{animationDelay:'0.25s'}}>
+          {TABS.map(t => {
+            const Icon = t.icon
+            return (
+              <button
+                key={t.id}
+                className={`${styles.tab} ${tab === t.id ? styles.tabActive : ''}`}
+                onClick={() => setTab(t.id)}
+              >
+                <Icon size={15} strokeWidth={2} />
+                <span className={styles.tabLabel}>{t.label}</span>
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Tool card */}
         <div className={`card animate-fadeUp`} style={{animationDelay:'0.3s'}}>
 
-          {!ip.originalFile
-            ? <div className={styles.pad}><DropZone onFile={handleFile} /></div>
-            : (
-              <>
-                <PreviewPanel
-                  originalFile={ip.originalFile}
-                  originalImg={ip.originalImg}
-                  livePreview={ip.livePreview}
-                  liveInfo={ip.liveInfo}
-                />
-
-                <div className="divider" />
-
-                <Presets onApply={ip.applyPreset} />
-
-                <div className="divider" style={{margin:'8px 0'}} />
-
-                <Controls
-                  width={ip.width} height={ip.height}
-                  quality={ip.quality} format={ip.format}
-                  lockAspect={ip.lockAspect}
-                  targetKB={ip.targetKB} targetUnit={ip.targetUnit}
-                  onWidth={ip.setWidth} onHeight={ip.setHeight}
-                  onQuality={ip.updateQuality} onFormat={ip.updateFormat}
-                  onLock={ip.setLockAspect}
-                  onTargetKB={ip.setTargetKB} onTargetUnit={ip.setTargetUnit}
-                />
-
-                <div className={styles.actions}>
-                  <button className={styles.resetBtn} onClick={handleReset}>↺ Reset</button>
-                  <button
-                    className={styles.processBtn}
-                    onClick={handleProcess}
-                    disabled={ip.processing}
-                  >
-                    {ip.processing
-                      ? <><span className={styles.spinner} /> Processing…</>
-                      : '✦ Resize & Compress'}
-                  </button>
-                </div>
-
-                {ip.output && (
+          {/* ── IMAGE RESIZER ── */}
+          {tab === 'resize' && (
+            <>
+              {!ip.originalFile
+                ? <div className={styles.pad}><DropZone onFile={handleFile} /></div>
+                : (
                   <>
+                    <PreviewPanel
+                      originalFile={ip.originalFile}
+                      originalImg={ip.originalImg}
+                      livePreview={ip.livePreview}
+                      liveInfo={ip.liveInfo}
+                    />
                     <div className="divider" />
-                    <OutputPanel output={ip.output} onReset={handleReset} />
+                    <Presets onApply={ip.applyPreset} />
+                    <div className="divider" style={{margin:'8px 0'}} />
+                    <Controls
+                      width={ip.width} height={ip.height}
+                      quality={ip.quality} format={ip.format}
+                      lockAspect={ip.lockAspect}
+                      targetKB={ip.targetKB} targetUnit={ip.targetUnit}
+                      onWidth={ip.setWidth} onHeight={ip.setHeight}
+                      onQuality={ip.updateQuality} onFormat={ip.updateFormat}
+                      onLock={ip.setLockAspect}
+                      onTargetKB={ip.setTargetKB} onTargetUnit={ip.setTargetUnit}
+                    />
+                    <div className={styles.actions}>
+                      <button className={styles.resetBtn} onClick={handleReset}>↺ Reset</button>
+                      <button
+                        className={styles.processBtn}
+                        onClick={handleProcess}
+                        disabled={ip.processing}
+                      >
+                        {ip.processing
+                          ? <><span className={styles.spinner} /> Processing…</>
+                          : '✦ Resize & Compress'}
+                      </button>
+                    </div>
+                    {ip.output && (
+                      <>
+                        <div className="divider" />
+                        <OutputPanel output={ip.output} onReset={handleReset} />
+                      </>
+                    )}
                   </>
-                )}
-              </>
-            )
-          }
+                )
+              }
+            </>
+          )}
+
+          {/* ── IMAGE TO PDF ── */}
+          {tab === 'img2pdf' && <ImageToPDF />}
+
+          {/* ── PDF TO IMAGE ── */}
+          {tab === 'pdf2img' && <PDFToImage />}
+
+          {/* ── PDF SIZE CHANGER ── */}
+          {tab === 'pdfsize' && <PDFSizeChanger />}
+
         </div>
       </main>
 

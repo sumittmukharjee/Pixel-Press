@@ -1,0 +1,89 @@
+.wrap { padding: 24px; display: flex; flex-direction: column; gap: 18px; }
+
+.dropZone {
+  border: 2px dashed var(--border); border-radius: 14px;
+  padding: 40px 24px; text-align: center; cursor: pointer;
+  background: var(--surface2);
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  display: flex; flex-direction: column; align-items: center;
+}
+.dropZone:hover, .dragOver {
+  border-color: var(--accent2) !important;
+  background: rgba(46,173,166,0.05) !important;
+  box-shadow: 0 0 24px rgba(46,173,166,0.1);
+}
+.dzTitle { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--text); margin-bottom: 6px; }
+.dzSub { font-size: 0.75rem; color: var(--text-muted); }
+
+.section { display: flex; flex-direction: column; gap: 10px; }
+
+.presetGrid { display: flex; flex-wrap: wrap; gap: 8px; }
+.presetBtn {
+  padding: 7px 14px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--surface2);
+  font-family: 'DM Mono', monospace; font-size: 0.73rem;
+  color: var(--text-muted); cursor: pointer; transition: all 0.15s;
+}
+.presetBtn:hover { border-color: var(--accent2); color: var(--accent2); }
+.presetActive { border-color: var(--accent2) !important; background: rgba(46,173,166,0.1) !important; color: var(--accent2) !important; }
+
+.dimRow { display: grid; grid-template-columns: 1fr auto 1fr auto; align-items: end; gap: 10px; }
+@media(max-width:480px) {
+  .dimRow { grid-template-columns: 1fr auto 1fr; }
+  .dimHint { grid-column: 1/-1; }
+}
+.field { display: flex; flex-direction: column; gap: 5px; }
+.dimLabel { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); }
+.dimX { font-size: 1rem; color: var(--text-dim); padding-bottom: 10px; }
+.dimHint { font-size: 0.7rem; color: var(--text-muted); padding-bottom: 10px; white-space: nowrap; }
+
+.fitGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+@media(max-width:400px) { .fitGrid { grid-template-columns: 1fr; } }
+.fitBtn {
+  padding: 10px 14px; border-radius: 8px; text-align: left;
+  border: 1px solid var(--border); background: var(--surface2);
+  font-family: 'DM Mono', monospace; font-size: 0.75rem;
+  color: var(--text-muted); cursor: pointer; transition: all 0.15s;
+}
+.fitBtn:hover { border-color: var(--accent); color: var(--accent); }
+.fitActive { border-color: var(--accent) !important; background: rgba(232,93,38,0.08) !important; color: var(--accent) !important; }
+.fitHint { font-size: 0.72rem; color: var(--text-dim); padding: 4px 2px; min-height: 20px; }
+
+.processBtn {
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, #7c6cf2, #5a4fd4);
+  color: white; border: none; border-radius: 12px;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 4px 20px rgba(124,108,242,0.3);
+  transition: transform 0.2s, opacity 0.2s;
+}
+.processBtn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(124,108,242,0.4); }
+.processBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.result {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  background: rgba(30,168,106,0.07); border: 1px solid rgba(30,168,106,0.2);
+  border-radius: 12px; padding: 18px 20px;
+}
+.resultLeft { flex: 1; }
+.resultTitle { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--success); margin-bottom: 10px; }
+.statRow { display: flex; justify-content: space-between; font-size: 0.76rem; padding: 4px 0; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+.statRow:last-child { border: none; }
+.statRow span:last-child { color: var(--text); font-weight: 500; }
+
+.dlBtn {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--success); color: white; border: none; border-radius: 10px;
+  padding: 12px 20px; font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 0.85rem; text-decoration: none; cursor: pointer;
+  transition: transform 0.15s; white-space: nowrap; flex-shrink: 0;
+}
+.dlBtn:hover { transform: translateY(-1px); }
+
+.spinner {
+  width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: white; border-radius: 50%;
+  animation: spin 0.7s linear infinite; display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
