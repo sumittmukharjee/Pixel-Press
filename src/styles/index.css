@@ -1,0 +1,131 @@
+/* ─── TOKENS ─────────────────────────────────────── */
+:root {
+  --bg: #f5f4f0;
+  --surface: #ffffff;
+  --surface2: #eeecea;
+  --border: #dddbd5;
+  --accent: #e85d26;
+  --accent2: #2eada6;
+  --text: #1a1a2e;
+  --text-muted: #6a6a7a;
+  --text-dim: #aaaabc;
+  --success: #1ea86a;
+  --warning: #d4a017;
+  --shadow: 0 8px 40px rgba(0,0,0,0.08);
+  --glow: 0 0 30px rgba(232,93,38,0.12);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+[data-theme="dark"] {
+  --bg: #0a0a0f;
+  --surface: #13131c;
+  --surface2: #1c1c2e;
+  --border: #2a2a40;
+  --accent: #ff6b35;
+  --accent2: #4ecdc4;
+  --text: #f0f0f5;
+  --text-muted: #7a7a9a;
+  --text-dim: #4a4a6a;
+  --shadow: 0 8px 40px rgba(0,0,0,0.5);
+  --glow: 0 0 30px rgba(255,107,53,0.15);
+}
+
+/* ─── RESET ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Mono', monospace;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.35s, color 0.35s;
+  overflow-x: hidden;
+}
+
+/* Background ambient */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 5%, rgba(232,93,38,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 90% 85%, rgba(46,173,166,0.05) 0%, transparent 55%);
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ─── SHARED COMPONENTS ──────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: background 0.35s, border-color 0.35s;
+}
+
+.label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--text-muted);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 8px;
+}
+
+input[type="number"], select {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.88rem;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.35s;
+  outline: none;
+}
+input[type="number"]:focus, select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(232,93,38,0.12);
+}
+select option { background: var(--surface2); }
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+  height: 5px;
+}
+
+/* ─── ANIMATION KEYFRAMES ────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.animate-fadeUp { animation: fadeUp 0.5s ease both; }
+.animate-scaleIn { animation: scaleIn 0.4s ease both; }
+
+/* ─── UTILITY ─────────────────────────────────────── */
+.divider { height: 1px; background: var(--border); margin: 0; }

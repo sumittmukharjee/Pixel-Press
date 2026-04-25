@@ -1,0 +1,80 @@
+.hero {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 72px 20px 36px;
+}
+.heroTag {
+  display: inline-flex; align-items: center; gap: 7px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  padding: 6px 18px; border-radius: 50px;
+  margin-bottom: 24px;
+}
+.h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  margin-bottom: 18px;
+  color: var(--text);
+}
+.h1 em {
+  font-style: normal; color: var(--accent);
+  position: relative;
+}
+.h1 em::after {
+  content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+  height: 3px; background: var(--accent); border-radius: 2px; opacity: 0.35;
+}
+.sub {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  max-width: 480px; margin: 0 auto;
+  line-height: 1.75;
+}
+
+.main {
+  max-width: 860px; margin: 0 auto;
+  padding: 0 20px 80px;
+  position: relative; z-index: 1;
+}
+
+.pad { padding: 24px; }
+
+.actions {
+  display: flex; gap: 12px; padding: 0 24px 24px;
+  flex-wrap: wrap;
+}
+.resetBtn {
+  flex: 1; min-width: 120px;
+  padding: 13px 20px; border-radius: 12px;
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text-muted); font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 0.88rem; cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.resetBtn:hover { border-color: var(--accent2); color: var(--accent2); }
+
+.processBtn {
+  flex: 2; min-width: 180px;
+  padding: 13px 24px; border-radius: 12px;
+  background: var(--accent); border: none; color: white;
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 0.92rem; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(232,93,38,0.3);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.processBtn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,93,38,0.45); }
+.processBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.spinner {
+  width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white; border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
